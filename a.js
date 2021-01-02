@@ -215,7 +215,7 @@ function fix_content_blocks() {
     /* Break pre into lines. This must be the second step */
     $('pre').each(function (i, elem) {
 	let a = $(elem).html();
-	let b = a.split(/(?:\r|\n\r?)/);
+	let b = a.match(/\S/)? a.split(/(?:\r|\n\r?)/): [];
 	a = b.map(x => (x.match(/^<address/)? x:
 		'<l class=t-wrapper><span class=t-whiteout></span><span class=t>' + x + '</span></l>')).join('');
 	$(elem).html(a);
