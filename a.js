@@ -1,6 +1,6 @@
 /* vi: set sw=4 ai sm: */
 /*
- * © 2016–2020 Ambrose Li
+ * © 2016–2021 Ambrose Li
  * This is part of the four auxiliary files (a.css, a.js, jquery, reset.css) required by the HTML slides
  * Written by Ambrose Li c. June 2016 for Carmel Fellowship, SCBC
  * Auto-advance re-implemented by Ambrose Li, July 2018
