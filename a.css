@@ -272,7 +272,10 @@ cite:lang(zh-TW) {
     margin-top: 1em;
     content: "﹋";
 }
-i[lang=fr] {
+cite:lang(en),
+cite:lang(fr),
+i:lang(en),
+i:lang(fr) {
     font-style: italic;
 }
 em:lang(zh-HK),
