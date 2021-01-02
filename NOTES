@@ -1,0 +1,2 @@
+Please don't use inline SGML comments. Yes, they're valid, but they confused JQuery; they're parsed as attributes, which is wrong.
+Make up some data attribute for verse categories. Make up something. But don't use SGML comments :-(

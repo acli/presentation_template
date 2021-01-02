@@ -1,0 +1,508 @@
+/* vi: set sw=4 ai sm: */
+/*
+ * © 2016–2020 Ambrose Li
+ * This is part of the four auxiliary files (a.css, a.js, jquery, reset) required by the HTML slides
+ * Written by Ambrose Li c. June 2016 for Carmel Fellowship, SCBC
+ * Last updated January 2020
+ */
+@import url(reset.css);
+@import url(http://brick.freetls.fastly.net/Alegreya+Sans:300,300i,400,400i,500,500i,700,700i,800,800i);
+/*@import url(https://fonts.googleapis.com/earlyaccess/sawarabigothic.css);*/
+@import url(https://fonts.googleapis.com/earlyaccess/notosansjp.css);
+@import url(https://fonts.googleapis.com/earlyaccess/notosanstc.css);
+html {
+    background-color: rgb(57, 47, 46);
+    color: rgb(255, 255, 255);
+    font-family: "Alegreya Sans", sans-serif;
+    font-size: 36pt;
+    font-weight: 300;
+    font-kerning: normal;
+    /* aalt is weird. Do not use aalt */
+    /* case is also weird (it changes headings to all caps). Do not use case */
+    font-feature-settings: "calt", "kern", "liga", "onum", "pnum"; font-variant: common-ligatures discretionary-ligatures contextual oldstyle-nums;
+    text-rendering: optimizeLegibility;
+}
+html {
+    background-color: black;
+}
+#background-color[bgcolor=blue],
+html.blue {
+    background-color: rgb(0, 68, 103); /* h15 */
+    background-color: rgb(0, 0, 48);
+}
+#background-color[bgcolor=red],
+html.red {
+    background-color: rgb(84, 10, 61); /* h1 */
+    background-color: rgb(96, 0, 0);
+}
+#background-color[bgcolor=black],
+html.black {
+    background-color: black;
+}
+html,
+body {
+    margin: 0;
+    overflow: hidden;
+    /* line-height needs to be here because it's reset in body */
+    line-height: 1.236em;
+}
+section {
+    position: fixed;
+    margin-top: 1em;
+    margin-left: 3em;
+    padding-bottom: 100em;
+    /* NOTE: "top" transition determines whether lyrics are scrolled or are abruptly changed */
+    transition: top 0.075s, left 0.5s, height 1.5s, font-size 0.25s, opacity 1s, visibility 1s, background-color 1s;
+    display: flex;
+    flex-direction: row;
+}
+section:before {
+    transition: opacity 1s, visibility 1s, background-color 1s;
+}
+address,
+section > blockquote,
+section > p,
+section > p.active,
+section > .intro {
+    min-width: 40vw;
+    max-width: 35em;
+}
+@media screen and (min-width: 100em) { /* re-constrain min-width to some reasonable value if screen is too wide */
+    address,
+    section > blockquote,
+    section > p,
+    section > p.active,
+    section > .intro {
+	min-width: 25em;
+    }
+}
+section > blockquote,
+section > p,
+section > div,
+section > .intro {
+    padding-right: 1em;
+}
+section > div {
+    display: flex;
+    flex-direction: column;
+    padding-right: 100vw;
+}
+section > p,
+section > .intro ,
+address {
+    font-style: italic;
+    color: rgba(255, 234, 154, 0.9); /* m7 */
+}
+address {
+    white-space: normal;
+}
+address + l,
+l + address {
+    margin-top: 1em;
+}
+l {
+    display: block;
+}
+#background-color {
+    mix-blend-mode: color;
+    transition: background-color 2s;
+}
+#background-color,
+#background-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: fixed;
+    width: 120vw; height: 120vh; top: -10vh; left: -10vw;
+}
+#background-image {
+    background-size: cover;
+    background-position: 50% 50%;
+    mix-blend-mode: luminosity;
+    opacity: 50%;
+    transition: background-image 2s;
+}
+.hidden {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    padding: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+.cloaked {
+    color: transparent;
+}
+.active {
+    font-weight: 500;
+    min-width: 40vw;
+    max-width: 90vw;
+}
+.active address,
+p.active {
+    font-weight: 400;
+}
+.yellow .active {
+    color: rgb(255, 234, 154); /* m7 */
+    color: yellow;
+    color: rgb(244, 170, 41); /* c7 */
+    color: rgb(255, 223, 0); /* p7 */
+}
+.nonadv {
+    position: absolute;
+}
+.active ~ * {
+    opacity: 0.2;
+}
+.previous,
+.active + * {
+    font-weight: 400;
+    opacity: 0.6;
+}
+.active + * + * {
+    opacity: 0.5;
+}
+.active + * + * + * {
+    opacity: 0.4;
+}
+.active + * + * + * + * {
+    opacity: 0.3;
+}
+pre,
+blockquote {
+    margin: 0 0 1em 0;
+    padding: 0;
+    transition: color 1s;
+}
+pre:empty,
+blockquote:empty {
+    margin: 0;
+}
+pre > l,
+p > span,
+blockquote > span {
+    position: relative; /* create positioning context */
+}
+pre > l {
+}
+pre > l[lang=zh-HK],
+pre > l[lang=zh-TW] {
+}
+span.t-whiteout {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin-top: 0.1em;
+    background-color: #000;
+    mix-blend-mode: luminosity;
+    opacity: 0.5;
+    z-index: -1;
+}
+#a,
+#b,
+#c,
+#d,
+#e,
+#f,
+#g {
+    padding-top: 1em;
+}
+section > aside.ruby {
+    display: none;
+}
+ruby > rt {
+    font-size: 50%;
+    ruby-align: center;
+    position: relative;
+}
+a {
+    display: block;
+    color: inherit;
+    text-decoration: inherit;
+}
+blockquote a,
+pre a {
+    display: unset;
+}
+.byline {
+    text-align: right;
+}
+.byline:before {
+    content: "—";
+    margin-right: 0.1em;
+}
+.byline:lang(zh-HK):before,
+.byline:lang(zh-TW):before {
+    content: "——";
+    letter-spacing: -0.1em;
+}
+h1 + subline,
+h1 {
+    transition: opacity 3s;
+    transform-origin: 0% 0%;
+    transform: rotate(90deg);
+}
+h1 {
+    top: 0;
+    left: 1.65em;
+    /*text-rendering: geometricPrecision;*/
+}
+h1 + subline {
+    display: inline-block;
+    font-size: 50%;
+    top: 1.25em;
+    left: 2.7rem;
+}
+.iframe,
+h1 + subline,
+h1 {
+    position: fixed;
+}
+.iframe {
+    right: 0;
+    bottom: 50%;
+}
+cite:lang(zh-HK),
+cite:lang(zh-TW) {
+    font-style: inherit;
+}
+.cite:lang(zh-HK):before,
+.cite:lang(zh-TW):before {
+    position: absolute;
+    margin-top: 1em;
+    content: "﹋";
+}
+i[lang=fr] {
+    font-style: italic;
+}
+em:lang(zh-HK),
+em:lang(zh-TW) {
+    text-emphasis-style: "⚫";
+    text-emphasis-position: under;
+}
+.inverted {
+    display: inline-block;
+    transform: rotate(180deg);
+}
+blockquote,
+pre {
+    z-index: 1;
+}
+blockquote {
+    padding-right: 3em;
+}
+[role=doc-biblioentry] {
+    margin-left: 1em;
+    text-indent: -1em;
+}
+h1 + .intro,
+blockquote.intro {
+    padding-bottom: 1000em;
+    padding-bottom: 0; height: 100vh;
+    padding-right: 1.5em;
+    display: inline-block;
+    transition: color 0.5s;
+}
+h1:lang(he),
+blockquote:lang(he),
+pre:lang(he),
+*:lang(he) {
+    font-family: "Droid Sans Hebrew";
+    font-variant: lining-nums proportional-nums;
+}
+h1:lang(zh-HK),
+h1:lang(zh-TW),
+blockquote:lang(zh-HK),
+blockquote:lang(zh-TW),
+pre:lang(zh-HK),
+pre:lang(zh-TW),
+*:lang(zh-HK),
+*:lang(zh-TW) {
+    font-family: 'Taipei Sans TC Beta', 'Noto Sans JP', 'Noto Sans TC', sans-serif; /* prefer Japanese forms over Taiwanese forms */
+    line-height: 1.618em;
+    font-variant: lining-nums proportional-nums;
+}
+h1 {
+    display: inline-block;
+    font-size: inherit;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: rgb(57, 47, 46);
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-top: 0.3125em;
+    padding-bottom: 0.125em;
+    height: 1.6em;
+}
+h1.deemphasized + subline,
+h1.deemphasized {
+    opacity: 0.5;
+}
+h1 :lang(zh-HK),
+h1 :lang(zh-TW) {
+    position: relative;
+    bottom: -0.0625em;
+}
+h1 :lang(zh-HK),
+h1 :lang(zh-TW),
+h1:lang(zh-HK),
+h1:lang(zh-TW) {
+    line-height: 1;
+}
+.blue h1 {
+    color: rgb(0, 68, 103); /* h15 */
+    color: rgb(0, 0, 48);
+}
+.48 h1 {
+    color: rgb(84, 10, 61); /* h1 */
+    color: rgb(96, 0, 0);
+}
+.black h1 {
+    color: black;
+}
+h1:after {
+    display: block;
+    content: " ";
+}
+u:lang(zh-HK),
+u:lang(zh-TW) {
+    text-decoration: inherit;
+    padding-bottom: 0.1em;
+    border-bottom: 0.04em solid;
+}
+.url {
+    word-break: break-all;
+}
+.mbox {
+    display: inline-block;
+    white-space: nowrap;
+}
+.vadj {
+    position: relative;
+    top: -0.05em;
+}
+.halfwidth {
+    font-size: 50%;
+}
+.halfwidth-adjusted {
+    width: 2ch;
+    display: inline-block;
+}
+s {
+    text-decoration: inherit;
+}
+s,
+.nobreak {
+    white-space: nowrap;
+    word-break: keep-all;
+}
+.thinsp {
+    font-size: 20%;
+}
+.video-link,
+#prev,
+#next,
+#home,
+#end {
+    display: block;
+    position: fixed;
+    width: 3em;
+    height: 3em;
+    color: transparent;
+}
+.video-link:hover,
+audio:hover,
+#prev:hover,
+#next:hover,
+#home:hover,
+#end:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+    color: white;
+}
+.video-link,
+#prev,
+#next {
+    right: 0;
+    text-align: right;
+}
+.video-link {
+    top: 45%;
+    top: calc(50% - 1.5em);
+    width: 2.75em;
+    padding-top: 1.25em;
+    border-top-left-radius: 3em;
+    border-bottom-left-radius: 3em;
+}
+#prev {
+    top: 0;
+    border-bottom-left-radius: 3em;
+    line-height: 2.5em;
+}
+#next {
+    bottom: 0;
+    border-top-left-radius: 3em;
+    line-height: 3.5em;
+}
+#home,
+#end {
+    left: 0;
+}
+#home {
+    top: 0;
+    border-bottom-right-radius: 3em;
+    line-height: 2.5em;
+}
+#end {
+    bottom: 0;
+    border-top-right-radius: 3em;
+    line-height: 3.5em;
+}
+#help {
+    position: fixed;
+    display: block;
+    z-index: 100;
+    color: black;
+    background: #808080;
+    opacity: 0.95;
+    padding: 1em 3em 1em 3em;
+    font-variant: slashed-zero;
+}
+#help p {
+    margin: 0 0 1em 0;
+}
+#help dl {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+#help dl {
+    columns: 2;
+}
+#help dl dt {
+    float: left;
+}
+#help dl dd {
+    margin-left: 1.5em;
+}
+#timer,
+#stanza,
+#volume {
+    position: fixed;
+    display: block;
+    line-height: 1em;
+    right: 0;
+    font-feature-settings: "lnum", "tnum";
+}
+#timer {
+    font-size: 50%;
+    top: 50%;
+}
+#stanza {
+    font-size: 33%;
+    top: 2rem;
+    z-index: -999;
+}
+#volume {
+    font-size: 33%;
+    top: 75%;
+    opacity: 50%;
+}
