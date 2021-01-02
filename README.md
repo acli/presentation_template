@@ -25,7 +25,8 @@ Example file
 ============
 
 If you would like to hear audio in the example (`z` key on the two lyrics slides),
-please download the video of *God Save The Queen* (arr. Damien Jacobs, released under CC-by)
+please download the video of
+[*God Save The Queen* from the Queen Elizabeth II Diamond Jubilee Coronation Concert](https://archive.org/details/QueenElizabethIIDiamondJubileeCoronationConcert/29+The+National+Anthem+-+God+Save+The+Queen+(ARR+JACOB).mpg)
 from the Internet Archives by running `make`.
 If you do not have a local copy of the video the `z` key will auto-advance without audio.
 
