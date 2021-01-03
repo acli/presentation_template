@@ -18,6 +18,7 @@ markers = {};
 marking = false;
 recalling = false;
 volume = 50;
+current_audio = false;
 
 // Auto-advance state variables
 timer_pid = false;
@@ -486,10 +487,9 @@ function cancel_auto_advance () {
 } /* cancel_auto_advance */
 
 function stop_audio () {
-    let expected_section = sections_backref[blocks[cursor].section];
-    let audio = $('#' + blocks[expected_section].section + '>audio');
-    if (audio.length > 0) {
-	audio.get(0).pause();
+    if (current_audio) {
+	current_audio.pause();
+	current_audio.currentTime = 0;
     } /* if */
 } /* stop_audio */
 
@@ -534,8 +534,10 @@ function start_auto_advance () {
     let audio = $('#' + sections[expected_section].id + '>audio');
     cancel_auto_advance();
     if (audio.length > 0) {
+	stop_audio();
 	set_audio_volume();
-	audio.get(0).play();
+	current_audio = audio.get(0);
+	current_audio.play();
 	t_curr = audio.get(0).currentTime;
 	if (t_curr == 0) {
 	    jump_to_beginning_of_section();
