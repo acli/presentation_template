@@ -332,13 +332,6 @@ function display_current () {
 	    } /* if */
 	} /* if */
     } /* for */
-    if (section_start > -1) {
-	if (something_active_p) {
-	    $('#' + blocks[section_start].section + '>h1').removeClass('active');
-	} else {
-	    $('#' + blocks[section_start].section + '>h1').addClass('active');
-	} /* if */
-    } /* if */
 
     /* Shift the lyrics up/left */
     if (cursor > section_start) {
@@ -349,13 +342,20 @@ function display_current () {
     } /* if */
     curr_section.css('left', Math.round(-dx) + 'px');
     curr_section.css('top', Math.round(-dy) + 'px');
-    console.log($('#' + blocks[cursor].id).get(0).getBoundingClientRect());
+    //console.log($('#' + blocks[cursor].id).get(0).getBoundingClientRect());
 
-    /* Handle h1 */
+    /* Handle h1 (a little was also done in "Reset all display classes" above) */
     if (cursor > section_start) {
 	curr_section.find('h1').addClass('deemphasized');
     } else {
 	curr_section.find('h1').removeClass('deemphasized');
+    } /* if */
+    if (section_start > -1) {
+	if (something_active_p) {
+	    $('#' + blocks[section_start].section + '>h1').removeClass('active');
+	} else {
+	    $('#' + blocks[section_start].section + '>h1').addClass('active');
+	} /* if */
     } /* if */
 
     /* Handle backgrounds */
@@ -511,13 +511,12 @@ function check_auto_advance (t0, t_i, t_thres, expected_section) {
     let next = cursor + 1 < blocks.length? $('#' + blocks[cursor + 1].id): false;
     let t_next = next? parseFloat($(next).attr('start')): false;
     let t_stop = parseFloat($(curr).attr('stop'));
-    $('#timer').html(Math.floor(t) + '<br>' + (t_next? Math.floor(t_next - t): (t_stop? Math.floor(t_stop - t): '—')));
+    $('#timer').html(Math.floor(t) + '<br>' + (t_next? Math.ceil(t_next - t): (t_stop? Math.ceil(t_stop - t): '—')));
     if (t > t_thres) {		// XXX de-emphasize the song title after 10 seconds of music
 	$('#' + blocks[cursor].section).find('h1').addClass('deemphasized');
     } /* if */
     if (t_stop? t >= t_stop: !t_next) {
 	cancel_auto_advance();
-	$('#' + blocks[cursor].section).find('h1').removeClass('active');/*FIXME no effect */
     } else if (t_next && t >= t_next) {
 	next_block();
 	if (sections_backref[blocks[cursor].section] != expected_section) {
