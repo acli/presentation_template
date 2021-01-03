@@ -133,6 +133,7 @@ l {
 .cloaked {
     color: transparent;
 }
+/* .active + .contd, /* NOTE: do not use ~ */
 .active {
     font-weight: 500;
     min-width: 40vw;
@@ -170,13 +171,19 @@ p.active {
 }
 pre,
 blockquote {
-    margin: 0 0 1em 0;
     padding: 0;
     transition: color 1s;
 }
+pre + pre,
+pre + blockquote,
+blockquote + pre,
+blockquote + blockquote {
+    margin-top: 1em;
+}
+pre.contd,
 pre:empty,
 blockquote:empty {
-    margin: 0;
+    margin-top: 0;
 }
 pre > l,
 p > span,

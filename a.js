@@ -197,6 +197,11 @@ function activate_replacement_content() { /* This must be done before find_block
 	let a = $(elem).attr('alt');
 	    $(elem).replaceWith(a);
     })
+    $('[stanza]+[stanza]').each(function (i, elem) {
+	if ($(elem).prev().attr('stanza') == $(elem).attr('stanza')) {
+	    $(elem).addClass('contd');
+	} /* if */
+    })
     $('link[repeat]').each(function (i, elem) {
 	let ref = $(elem).attr('repeat');
 	let target = $('[stanza="' + ref + '"]');
