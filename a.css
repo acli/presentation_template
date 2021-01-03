@@ -180,7 +180,7 @@ blockquote + pre {
     margin-top: 1em;
 }
 pre.contd,
-pre:empty,
+pre:empty + pre,
 blockquote:empty {
     margin-top: 0;
 }
