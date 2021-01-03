@@ -176,8 +176,7 @@ blockquote {
 }
 pre + pre,
 pre + blockquote,
-blockquote + pre,
-blockquote + blockquote {
+blockquote + pre {
     margin-top: 1em;
 }
 pre.contd,
