@@ -225,6 +225,16 @@ function fix_content_blocks() {
 		'<l class=t-wrapper><span class=t-whiteout></span><span class=t>' + x + '</span></l>')).join('');
 	$(elem).html(a);
     });
+    /* Copy (standard-compliant) data-start, data-end, data-stanza to (non-compliant) start, end, stanza */
+    $('[data-start]').each(function (j, elem) {
+	$(elem).attr('start', $(elem).attr('data-start'));
+    });
+    $('[data-ed]').each(function (j, elem) {
+	$(elem).attr('ed', $(elem).attr('data-ed'));
+    });
+    $('[data-stanza]').each(function (j, elem) {
+	$(elem).attr('stanza', $(elem).attr('data-stanza'));
+    });
     $('pre').each(function (i, elem) {
 	var a0 = $(elem).html();
 	var a = a0.trim();
@@ -290,9 +300,11 @@ function display_current () {
     /* Reset all display classes, remembering where the section start/end are */
     var section_start = -1;
     var section_end = -1;
+    var something_active_p = false;
     for (i = 0; i < blocks.length; i += 1) {
 	if (blocks[i].section != curr_section_id) {		/* wrong section */
 	    $('#' + blocks[i].section).addClass('hidden');
+	    $('#' + blocks[i].section + '>h1').removeClass('active');
 	} else {						/* right section */
 	    $('#' + blocks[i].section).removeClass('hidden');
 	    var curr_block = $('#' + blocks[i].id);
@@ -314,8 +326,18 @@ function display_current () {
 	    if (cursor > 1) {
 		$('#' + blocks[i - 1].id).addClass('previous');
 	    } /* if */
+	    if ($('#' + blocks[i].id).text().match(/\S/)) {
+		something_active_p = true;
+	    } /* if */
 	} /* if */
     } /* for */
+    if (section_start > -1) {
+	if (something_active_p) {
+	    $('#' + blocks[section_start].section + '>h1').removeClass('active');
+	} else {
+	    $('#' + blocks[section_start].section + '>h1').addClass('active');
+	} /* if */
+    } /* if */
 
     /* Shift the lyrics up/left */
     if (cursor > section_start) {
@@ -482,15 +504,15 @@ function set_audio_volume () {
     } /* if */
 } /* set_audio_volume */
 
-function check_auto_advance (t0, t_i, expected_section) {
+function check_auto_advance (t0, t_i, t_thres, expected_section) {
     let t = (Date.now() - t0)/1000 + t_i;
     let curr = $('#' + blocks[cursor].id);
     let next = cursor + 1 < blocks.length? $('#' + blocks[cursor + 1].id): false;
     let $next = $(next);
-    let t_next = next? (parseFloat($next.attr('start')) || parseFloat($next.attr('data-start'))): false;
-    let t_stop = next? (parseFloat($next.attr('stop')) || parseFloat($next.attr('data-stop'))): false;
+    let t_next = next? parseFloat($next.attr('start')): false;
+    let t_stop = next? parseFloat($next.attr('stop')): false;
     $('#timer').html(Math.floor(t) + '<br>' + (t_next? Math.floor(t_next - t): '—'));
-    if (t > t_i + 10) {		// XXX de-emphasize the song title after 10 seconds of music
+    if (t > t_thres) {		// XXX de-emphasize the song title after 10 seconds of music
 	curr_section = $('#' + blocks[cursor].section).find('h1').addClass('deemphasized');
     } /* if */
     if ((t_stop && t >= t_stop) || !t_next) {
@@ -508,7 +530,7 @@ function start_auto_advance () {
     let t0 = Date.now();
     let expected_section = sections_backref[blocks[cursor].section];
     let curr = $('#' + blocks[cursor].id);
-    let t_curr = parseFloat($(curr).attr('start')) || parseFloat($(curr).attr('data-start'));
+    let t_curr = parseFloat($(curr).attr('start'));
     let audio = $('#' + sections[expected_section].id + '>audio');
     cancel_auto_advance();
     if (audio.length > 0) {
@@ -519,8 +541,28 @@ function start_auto_advance () {
 	    jump_to_beginning_of_section();
 	} /* if */
     } /* if */
+    
+    /* Figure out when we should de-emphasize the heading */
+    let t_thres = t0 + 10;
+    let det = $('#' + blocks[backref[sections[expected_section]['first']]].id);
+    if ($(det).attr('start')) {
+	let t_det = parseFloat($(det).attr('start'));
+	if (t_det == 0) {
+	    det = $(det).next()
+	    t_det = parseFloat($(det).attr('start'));
+	} /* if */
+	if (t_det && t_det > 0) {
+	    let candidate = t_det - 5;
+	    console.log('lyrics threshold=' + t_det + ', candidate=' + candidate);
+	    if (t_thres < candidate) {
+		t_thres = candidate;
+	    } /* if */
+	} /* if */
+    } /* if */
+
+    /* Start the timer */
     timer_pid = setInterval(function () {
-	check_auto_advance(t0, t_curr, expected_section);
+	check_auto_advance(t0, t_curr, t_thres, expected_section);
     }, 100);
 } /* start_auto_advance */
 

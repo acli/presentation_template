@@ -143,11 +143,12 @@ l {
 p.active {
     font-weight: 400;
 }
-.yellow .active {
-    color: rgb(255, 234, 154); /* m7 */
-    color: yellow;
-    color: rgb(244, 170, 41); /* c7 */
+.yellow pre.active,
+.yellow blockquote.active {
     color: rgb(255, 223, 0); /* p7 */
+}
+.yellow h1.active {
+    //background-color: rgb(255, 223, 0); /* p7 */
 }
 .nonadv {
     position: absolute;
