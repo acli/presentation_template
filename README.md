@@ -26,7 +26,7 @@ Example file
 
 To run the example, open example.html in a browser.
 Hit the down arrow to advance.
-On lyrics sides you can use down arrow,
+On lyrics slides you can use down arrow,
 which would be how you’d use it if there’s a live band so you’re advancing the slide by hand;
 alternatively you can hit the `z` key to auto-advance the slide.
 
