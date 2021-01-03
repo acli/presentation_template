@@ -490,6 +490,7 @@ function stop_audio () {
     if (current_audio) {
 	current_audio.pause();
 	current_audio.currentTime = 0;
+	current_audio = false;
     } /* if */
 } /* stop_audio */
 
@@ -701,6 +702,8 @@ $(function () {
 		r1 = 0;
 	    }
 	    recalculate_whiteouts();
+	} else if (event.which == 88) {				// X (NOTE: NOT VI COMPATIBLE)
+	    stop_audio();
 	} else if (event.which == 90) {				// Z (NOTE: NOT VI COMPATIBLE)
 	    cancel_auto_advance();
 	} else if (event.which == 102) {			// f (NOTE: NOT VI COMPATIBLE)
