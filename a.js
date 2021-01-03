@@ -303,12 +303,12 @@ function display_current () {
     var section_end = -1;
     var something_active_p = false;
     for (i = 0; i < blocks.length; i += 1) {
+	let curr_block = $('#' + blocks[i].id);
 	if (blocks[i].section != curr_section_id) {		/* wrong section */
 	    $('#' + blocks[i].section).addClass('hidden');
 	    $('#' + blocks[i].section + '>h1').removeClass('active');
 	} else {						/* right section */
 	    $('#' + blocks[i].section).removeClass('hidden');
-	    var curr_block = $('#' + blocks[i].id);
 	    if (i >= cursor) {
 		curr_block.removeClass('cloaked');
 		curr_block.removeClass('previous');
@@ -321,13 +321,13 @@ function display_current () {
 	    section_end = i;
 	} /* if */
 	if (i != cursor) {
-	    $('#' + blocks[i].id).removeClass('active');
+	    curr_block.removeClass('active');
 	} else {
-	    $('#' + blocks[i].id).addClass('active');
+	    curr_block.addClass('active');
 	    if (cursor > 1) {
 		$('#' + blocks[i - 1].id).addClass('previous');
 	    } /* if */
-	    if ($('#' + blocks[i].id).text().match(/\S/)) {
+	    if (curr_block.text().match(/\S/)) {
 		something_active_p = true;
 	    } /* if */
 	} /* if */
