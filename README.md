@@ -24,11 +24,22 @@ An audio source can be specified for each slide (i.e., `section`).
 Example file
 ============
 
-If you would like to hear audio in the example (`z` key on the two lyrics slides),
-please download the video of
-[*God Save The Queen* from the Queen Elizabeth II Diamond Jubilee Coronation Concert](https://archive.org/details/QueenElizabethIIDiamondJubileeCoronationConcert/29+The+National+Anthem+-+God+Save+The+Queen+(ARR+JACOB).mpg)
-from the Internet Archives by running `make`.
+To run the example, open example.html in a browser.
+Hit the down arrow to advance.
+On lyrics sides you can use down arrow,
+which would be how you’d use it if there’s a live band so you’re advancing the slide by hand;
+alternatively you can hit the `z` key to auto-advance the slide.
+
+The auto-advance that you get when you hit `z` is synced to 
+[God Save The Queen on the *Queen Elizabeth II Diamond Jubilee Coronation Concert*](https://archive.org/details/QueenElizabethIIDiamondJubileeCoronationConcert/29+The+National+Anthem+-+God+Save+The+Queen+(ARR+JACOB).mpg).
+If you would like to hear actual audio,
+please download the video clip of the performance
+from the Internet Archives by running `make`
+(`gmake` if you’re on a BSD system).
 If you do not have a local copy of the video the `z` key will auto-advance without audio.
+
+The `make` command will also download two photos from Wikimedia Commons –
+these are used in the lyrics slides to demonstrate how to embed background images.
 
 
 
