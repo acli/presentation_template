@@ -521,18 +521,26 @@ function set_audio_volume () {
 
 function check_auto_advance (t0, t_i, t_thres, expected_section) {
     let t = (Date.now() - t0)/1000 + t_i;
-    let curr = $('#' + blocks[cursor].id);
-    let next = cursor + 1 < blocks.length? $('#' + blocks[cursor + 1].id): false;
-    let t_next = next? parseFloat($(next).attr('start')): false;
+    let has_next_p = cursor + 1 < blocks.length;
+    let curr_id = blocks[cursor].id;
+    let curr = $('#' + curr_id);
+    let next = has_next_p? $('#' + blocks[cursor + 1].id): false;
+    let curr_section = sections[sections_backref[blocks[cursor].section]];
+    let next_section = has_next_p? sections[sections_backref[blocks[cursor + 1].section]]: false;
+    let t_next = (next && curr_section.id == next_section.id)? parseFloat($(next).attr('start')): false;
     let t_stop = parseFloat($(curr).attr('stop'));
     $('#timer').html(Math.floor(t) + '<br>' + (t_next? Math.ceil(t_next - t): (t_stop? Math.ceil(t_stop - t): '—')));
     if (t > t_thres) {		// XXX de-emphasize the song title after 10 seconds of music
 	$('#' + blocks[cursor].section).find('h1').addClass('deemphasized');
     } /* if */
-    if (t_stop? t >= t_stop: !t_next) {
-	cancel_auto_advance();
-	$(curr).addClass('waiting');
-    } else if (t_next && t >= t_next) {
+    if (curr_id == curr_section.last) {
+	if (t > t_stop) {
+	    cancel_auto_advance();
+	    $(curr).addClass('waiting');
+	} else if (!t_stop && !t_next) {
+	    cancel_auto_advance();
+	} /* if */
+    } else if (t_next && t >=t_next) {
 	next_block();
 	if (sections_backref[blocks[cursor].section] != expected_section) {
 	    cancel_auto_advance();
