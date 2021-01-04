@@ -527,9 +527,12 @@ function check_auto_advance (t0, t_i, t_thres, expected_section) {
     let next = has_next_p? $('#' + blocks[cursor + 1].id): false;
     let curr_section = sections[sections_backref[blocks[cursor].section]];
     let next_section = has_next_p? sections[sections_backref[blocks[cursor + 1].section]]: false;
+    let t_start = parseFloat($(curr).attr('start'));
     let t_next = (next && curr_section.id == next_section.id)? parseFloat($(next).attr('start')): false;
     let t_stop = parseFloat($(curr).attr('stop'));
-    $('#timer').html(Math.floor(t) + '<br>' + (t_next? Math.ceil(t_next - t): (t_stop? Math.ceil(t_stop - t): '—')));
+    $('#timer').html(Math.floor(t)
+	    + '<br>' + (t_next? Math.ceil(t_next - t): (t_stop? Math.ceil(t_stop - t): ''))
+	    + ((t_start && t_start > t)? ('<br>' + Math.ceil(t_start - t)): ''));
     if (t > t_thres) {		// XXX de-emphasize the song title after 10 seconds of music
 	$('#' + blocks[cursor].section).find('h1').addClass('deemphasized');
     } /* if */
