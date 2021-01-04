@@ -320,7 +320,7 @@ function display_current () {
 	    $('#' + blocks[i].section).addClass('hidden');
 	    $('#' + blocks[i].section + '>h1').removeClass('active');
 	} else {						/* right section */
-	    $('#' + blocks[i].section).removeClass('hidden');
+	    $('#' + blocks[i].section).removeClass('hidden').removeClass('waiting');
 	    if (i >= cursor) {
 		curr_block.removeClass('cloaked');
 		curr_block.removeClass('previous');
@@ -531,7 +531,7 @@ function check_auto_advance (t0, t_i, t_thres, expected_section) {
     } /* if */
     if (t_stop? t >= t_stop: !t_next) {
 	cancel_auto_advance();
-	/* TODO: if there's a way to set a flag to de-emphasize the last stanza do it here */
+	$(curr).addClass('waiting');
     } else if (t_next && t >= t_next) {
 	next_block();
 	if (sections_backref[blocks[cursor].section] != expected_section) {
