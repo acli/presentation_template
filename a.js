@@ -19,6 +19,7 @@ marking = false;
 recalling = false;
 volume = 50;
 current_audio = false;
+current_time = false;
 
 // Auto-advance state variables
 timer_pid = false;
@@ -282,6 +283,17 @@ function recalculate_whiteouts () {
     });
 } /* recalculate_whiteouts */
 
+function cursor_in_twilight_zone_p () {
+    let curr_block_id = blocks[cursor].id;
+    let curr_section = sections[sections_backref[blocks[cursor].section]];
+    let t_start = parseFloat($('#' + curr_block_id).attr('start'));
+    let it = false;
+    if (timer_pid && curr_block_id == curr_section.first && current_time < t_start) {
+	it = true;
+    } /* if */
+    return it;
+} /* cursor_in_twilight_zone_p */
+
 function display_current () {
     var curr_section_id = blocks[cursor].section;
     var curr_section = $('#' + curr_section_id);
@@ -323,6 +335,7 @@ function display_current () {
 	if (i != cursor) {
 	    curr_block.removeClass('active');
 	} else {
+	    /* NOTE: we could check for twilight-zone state here but the transition would be too abrupt */
 	    curr_block.addClass('active');
 	    if (cursor > 1) {
 		$('#' + blocks[i - 1].id).addClass('previous');
@@ -482,6 +495,7 @@ function cancel_auto_advance () {
     if (timer_pid) {
 	clearTimeout(timer_pid);
 	timer_pid = false;
+	current_time = false;
 	$('#timer').html('');
     } /* if */
 } /* cancel_auto_advance */
@@ -517,12 +531,17 @@ function check_auto_advance (t0, t_i, t_thres, expected_section) {
     } /* if */
     if (t_stop? t >= t_stop: !t_next) {
 	cancel_auto_advance();
+	/* TODO: if there's a way to set a flag to de-emphasize the last stanza do it here */
     } else if (t_next && t >= t_next) {
 	next_block();
 	if (sections_backref[blocks[cursor].section] != expected_section) {
 	    cancel_auto_advance();
 	    previous_block(); // FIXME: This is sometimes needed but sometimes not. I don't know why.
 	} /* if */
+    } else if (cursor_in_twilight_zone_p()) {
+	$(curr).addClass('waiting');
+    } else {
+	$(curr).removeClass('waiting');
     } /* if */
 } /* check_auto_advance */
 
@@ -533,6 +552,7 @@ function start_auto_advance () {
     let t_curr = parseFloat($(curr).attr('start'));
     let audio = $('#' + sections[expected_section].id + '>audio');
     cancel_auto_advance();
+    current_time = 0;
     if (audio.length > 0) {
 	stop_audio();
 	set_audio_volume();
@@ -545,7 +565,7 @@ function start_auto_advance () {
     } /* if */
     
     /* Figure out when we should de-emphasize the heading */
-    let t_thres = t0 + 10;
+    let t_thres = 10;
     let det = $('#' + blocks[backref[sections[expected_section]['first']]].id);
     if ($(det).attr('start')) {
 	let t_det = parseFloat($(det).attr('start'));
@@ -565,6 +585,7 @@ function start_auto_advance () {
     /* Start the timer */
     timer_pid = setInterval(function () {
 	check_auto_advance(t0, t_curr, t_thres, expected_section);
+	current_time = Math.round((Date.now() - t0)/1000); /* XXX */
     }, 100);
 } /* start_auto_advance */
 

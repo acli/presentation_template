@@ -52,7 +52,7 @@ section {
     margin-left: 3em;
     padding-bottom: 100em;
     /* NOTE: "top" transition determines whether lyrics are scrolled or are abruptly changed */
-    transition: top 0.075s, left 0.5s, height 1.5s, font-size 0.25s, opacity 1s, visibility 1s, background-color 1s;
+    transition: top 0.125s, left 0.5s, height 1.5s, font-size 0.25s, opacity 1s, visibility 1s, background-color 1s;
     display: flex;
     flex-direction: row;
 }
@@ -147,6 +147,10 @@ p.active {
 .yellow blockquote.active {
     color: rgb(255, 223, 0); /* p7 */
 }
+.yellow pre.waiting,
+.yellow blockquote.waiting {
+    color: inherit;
+}
 .yellow h1.active {
     //background-color: rgb(255, 223, 0); /* p7 */
 }
@@ -173,7 +177,7 @@ p.active {
 pre,
 blockquote {
     padding: 0;
-    transition: color 1s;
+    transition: color 1.5s;
 }
 pre + pre,
 pre + blockquote,
