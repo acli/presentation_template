@@ -336,7 +336,7 @@ function display_current () {
 	    curr_block.removeClass('active');
 	} else {
 	    /* NOTE: we could check for twilight-zone state here but the transition would be too abrupt */
-	    curr_block.addClass('active');
+	    curr_block.addClass('active').removeClass('waiting');
 	    if (cursor > 1) {
 		$('#' + blocks[i - 1].id).addClass('previous');
 	    } /* if */
