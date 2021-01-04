@@ -534,7 +534,7 @@ function check_auto_advance (t0, t_i, t_thres, expected_section) {
 	$('#' + blocks[cursor].section).find('h1').addClass('deemphasized');
     } /* if */
     if (curr_id == curr_section.last) {
-	if (t > t_stop) {
+	if (t_stop && t > t_stop) {
 	    cancel_auto_advance();
 	    $(curr).addClass('waiting');
 	} else if (!t_stop && !t_next) {
