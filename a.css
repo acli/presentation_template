@@ -509,6 +509,7 @@ audio:hover,
 #timer {
     font-size: 50%;
     top: 50%;
+    text-align: right;
 }
 #stanza {
     font-size: 33%;
