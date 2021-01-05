@@ -59,6 +59,7 @@ section {
     transition: top 0.125s, left 0.5s, height 1.5s, font-size 0.25s, opacity 1s, visibility 1s, background-color 1s;
     display: flex;
     flex-direction: row;
+    align-items: baseline;
 }
 section:before {
     transition: opacity 1s, visibility 1s, background-color 1s;
