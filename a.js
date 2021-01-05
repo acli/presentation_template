@@ -38,7 +38,7 @@ function find_blocks () {
 	} /* if */
 	var first, last;
 	var prefix = '#' + section_id + ' > ';
-	$(prefix + 'pre, ' + prefix + 'p, ' + prefix + 'blockquote, ' + prefix + 'a.video-link, ' + prefix + '.intro').each(function (j, elem) {
+	$(prefix + 'pre, ' + prefix + 'p, ' + prefix + 'blockquote, ' + prefix + 'x-textblock, ' + prefix + 'a.video-link, ' + prefix + '.intro').each(function (j, elem) {
 	    var id = $(elem).attr('id');
 	    if (!id) {
 		id = String.fromCharCode(97 + i) + (j + 1);
@@ -60,7 +60,11 @@ function find_blocks () {
 	    let det= $(elem).prop('tagName');
 	    console.log(det);
 	    if (!det.match(/^(?:SUBLINE|IMG|AUDIO|VIDEO)$/i)) { // failure to sieve these out results in weird errors
-		blocks[backref[$(elem).attr('id')]]['h1'] = true;
+		if ($(elem).attr('id')) {
+		    blocks[backref[$(elem).attr('id')]]['h1'] = true;
+		} else {
+		    console.log('Warning: Element ' + det + ' has no id - expect layout errors');
+		} /* if */
 	    } /* if */
 	});
 	sections_backref[section_id] = sections.length;
