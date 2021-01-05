@@ -384,6 +384,8 @@ u:lang(zh-TW) {
     border-bottom: 0.04em solid;
 }
 .url {
+    font-variant: lining-nums;
+    font-feature-settings: "lnum", "size", "zero";
     word-break: break-all;
 }
 .mbox {
