@@ -15,13 +15,13 @@ Running a presentation
 ==========
 
 The Javascript interface uses a vaguely *vi*-like keyboard-based navigation
-(`h`, `l` to advance/go back, `H` to home, etc., so this isn’t WCAG-compliant),
+(`h`, `l` to go back/advance, `H` to home, etc., so this isn’t WCAG-compliant),
 but up and down arrow keys also work.
 Pressing `?` will bring up a summary of the keys.
 
 The interface treats slides like lines,
-so hit `h` to advance,
-`l` to go back,
+so hit `l` to advance,
+`h` to go back,
 `0` to go back to the beginning of the slide,
 `j` for next slide, etc.
 Marking commands (`m`, `G`, `'`) should also work.
