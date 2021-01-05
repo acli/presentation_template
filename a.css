@@ -14,16 +14,16 @@
 :lang(fr),
 html {
     font-family: "Alegreya Sans", sans-serif;
+    font-kerning: normal;
+    /* aalt is weird. Do not use aalt */
+    /* case is also weird (it changes headings to all caps). Do not use case */
+    font-feature-settings: "calt", "kern", "liga", "onum", "pnum"; font-variant: common-ligatures discretionary-ligatures contextual oldstyle-nums;
 }
 html {
     background-color: rgb(57, 47, 46);
     color: rgb(255, 255, 255);
     font-size: 36pt;
     font-weight: 300;
-    font-kerning: normal;
-    /* aalt is weird. Do not use aalt */
-    /* case is also weird (it changes headings to all caps). Do not use case */
-    font-feature-settings: "calt", "kern", "liga", "onum", "pnum"; font-variant: common-ligatures discretionary-ligatures contextual oldstyle-nums;
     text-rendering: optimizeLegibility;
 }
 html {
