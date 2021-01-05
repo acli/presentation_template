@@ -92,6 +92,7 @@ function reconstruct_sections () {
 		id = $(elem).attr('id')? $(elem).attr('id'): 'i' + img_sn;
 		src = $(elem).attr('src');
 		align = $(elem).attr('align');
+		console.log('Found image '+src+', adjusted id='+id);
 		if (align) {
 		    var m = align.match(/^\s*(\d+)%\s+(\d+)%\s*$/);
 		    if (m) {
@@ -395,8 +396,12 @@ function display_current () {
 	    requested_pos = false;
 	} /* if */
 	if (requested_img) {
-	    expected_bg = 'url(' + requested_img + ')';
+	    expected_bg = 'url(' + requested_img.replace(/\x28/, '%28').replace(/\x29/, '%29') + ')';
+	    console.log('Requested background '+requested_bg+' is '+expected_bg);
 	} else {
+	    if (typeof requested_bg !== 'undefined') {
+		console.log('Unexpected error: requested '+requested_bg+', but cannot find image');
+	    } /* if */
 	    expected_bg = false;
 	} /* if */
 	if ($('#background-image').css('background-image') != expected_bg) {
