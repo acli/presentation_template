@@ -10,10 +10,14 @@
 /*@import url(https://fonts.googleapis.com/earlyaccess/sawarabigothic.css);*/
 @import url(https://fonts.googleapis.com/earlyaccess/notosansjp.css);
 @import url(https://fonts.googleapis.com/earlyaccess/notosanstc.css);
+:lang(en),
+:lang(fr),
+html {
+    font-family: "Alegreya Sans", sans-serif;
+}
 html {
     background-color: rgb(57, 47, 46);
     color: rgb(255, 255, 255);
-    font-family: "Alegreya Sans", sans-serif;
     font-size: 36pt;
     font-weight: 300;
     font-kerning: normal;
